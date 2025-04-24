@@ -1,0 +1,104 @@
+Dưới đây là khung phân tích yêu cầu dự án front-end, giúp bạn xác định công nghệ và quy trình phù hợp từ đầu đến triển khai:
+
+---
+
+## 1. Xác định yêu cầu chức năng & phi chức năng
+1. **SEO**  
+   - **Có yêu cầu SEO (ví dụ: e-commerce, job matching, blog …)**  
+     – Bắt buộc sử dụng framework hỗ trợ SSR/SSG để bot Google có thể crawling nội dung (Nuxt.js cho Vue, Next.js cho React).  
+   - **Không yêu cầu SEO**  
+     – Dự án thuần web app (dashboard, internal tool, PWA) → có thể dùng SPA (Vue.js, React.js) để giảm tải server.
+
+2. **đa ngôn ngữ (i18n)**  
+   - Nếu cần: tích hợp sẵn module i18n của framework (vue-i18n, react-i18next)  
+   - Xác định chiến lược lưu trữ ngôn ngữ (JSON file, API fetch, domain cookie).
+
+3. **Hiệu năng & kích cỡ bundle**  
+   - Critical: audit bundle size (Webpack Bundle Analyzer, Vite’s visualizer)  
+   - SSR/SSG vs SPA: cân nhắc preload, code-splitting, lazy-load.
+
+---
+
+## 2. Thiết lập code-base & quy trình phát triển
+1. **Khởi tạo dự án**  
+   - Dùng CLI chính thức: `create-nuxt-app` / `create-next-app` / `vue-cli` / `create-react-app` / Vite (tùy yêu cầu SEO).
+
+2. **Linting & Formatting (bắt buộc)**  
+   - **Prettier**: formater chung  
+   - **ESLint**: quy tắc lint code (với plugin framework tương ứng)  
+   - **Commit lint + Husky**:  
+     ```bash
+     npm install --save-dev @commitlint/{config-conventional,cli} husky lint-staged
+     ```
+     – Ngăn commit message không hợp lệ, chạy lint-before-commit.
+
+3. **Quy chuẩn commit & branch**  
+   - Conventional Commits  
+   - Git Flow / GitHub Flow (feature / develop / main).
+
+---
+
+## 3. Thư viện CSS & UI component (tuỳ chọn)
+1. **Class-library (utility-first)**  
+   - **Tailwind CSS**: gọn, dễ tích hợp, tree-shaking mạnh.
+
+2. **Component library**  
+   - **React**  
+     - shadcn/ui (nhẹ, utility-driven)  
+     - MUI (Material, kèm theme + tailwind)  
+   - **Vue**  
+     - shadcn (utility-driven, Vue port)  
+     - PrimeVue (rich API, customizable)  
+     - Vuetify (Material, khó tích hợp tailwind)  
+     - Ant Design Vue / Element UI (basic, ít dễ tích hợp tailwind)
+
+---
+
+## 4. Data fetching & State Management
+1. **Query library (tuỳ chọn)**  
+   - **TanStack Query** (React Query): caching, background-fetch, pagination…  
+2. **State management**  
+   - **Vue**: Pinia  
+   - **React**:  
+     - Redux Toolkit (cơ bản, ecosystem đầy đủ)  
+     - Recoil / Zustand (lightweight, pattern hooks)
+
+---
+
+## 5. Build & Quality Control
+1. **Build Analysis**  
+   - Mỗi lần `npm run build` → chạy analyzer (webpack-bundle-analyzer / vite-plugin-inspect)  
+   - Khắc phục cảnh báo: loại bỏ code dead, tối ưu ảnh, lazy loading.
+
+2. **Testing**  
+   - Unit tests: Jest, Vue Test Utils / React Testing Library  
+   - E2E tests: Cypress / Playwright.
+
+---
+
+## 6. Triển khai & Vận hành
+1. **Containerization**  
+   - **Docker**: dựng image, multi-stage build (build stage → production stage)  
+2. **Web server**  
+   - **NGINX**:  
+     - Reverse proxy  
+     - Gzip / Brotli compression  
+     - Cache headers  
+3. **Process manager (cho SSR)**  
+   - **PM2**:  
+     - Quản lý uptime, reload zero-downtime  
+4. **CI/CD**  
+   - GitHub Actions / GitLab CI:  
+     - Lint → Test → Build → Push image → Deploy  
+5. **Giám sát & Logging**  
+   - Sentry (front-end error)  
+   - Prometheus + Grafana (metrics server)  
+
+---
+
+### Kết luận
+Tuỳ quy mô & ngân sách, có thể “thu gọn”:
+- **Nhỏ** (dashboard, internal) → SPA + Tailwind + Pinia/Zustand  
+- **Vừa & lớn, có SEO** → Nuxt/Next + i18n + component library + Docker + NGINX + PM2  
+
+Hy vọng khung trên giúp bạn **phân tích** và **ra quyết định** nhanh chóng cho project front-end!
