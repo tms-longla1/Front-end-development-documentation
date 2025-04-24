@@ -1,5 +1,3 @@
-Dưới đây là khung phân tích yêu cầu dự án front-end, giúp bạn xác định công nghệ và quy trình phù hợp từ đầu đến triển khai:
-
 ---
 
 ## 1. Xác định yêu cầu chức năng & phi chức năng
@@ -95,10 +93,3 @@ Dưới đây là khung phân tích yêu cầu dự án front-end, giúp bạn x
    - Prometheus + Grafana (metrics server)  
 
 ---
-
-### Kết luận
-Tuỳ quy mô & ngân sách, có thể “thu gọn”:
-- **Nhỏ** (dashboard, internal) → SPA + Tailwind + Pinia/Zustand  
-- **Vừa & lớn, có SEO** → Nuxt/Next + i18n + component library + Docker + NGINX + PM2  
-
-Hy vọng khung trên giúp bạn **phân tích** và **ra quyết định** nhanh chóng cho project front-end!
